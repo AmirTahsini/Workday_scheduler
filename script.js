@@ -1,6 +1,7 @@
 var rootEl = $('#root');
 var saveButton = $('.saveBtn');
 var timeBlockHour;
+var id;
 
 
 $(function () {
@@ -12,13 +13,13 @@ $(function () {
     // This returns the id hour
     // console.log(timeBlock[i].getAttribute('id').split('-')[1]);
     timeBlockHour = timeBlock[i].getAttribute('id').split('-')[1];
-   if(currentTime > timeBlockHour) {
-    $(`#hour-${timeBlockHour}`).addClass('past');
-   } else if (currentTime < timeBlockHour) {
-    $(`#hour-${timeBlockHour}`).addClass('future');
-     } else if (currentTime === timeBlockHour) {
-      $(`#hour-${timeBlockHour}`).addClass('present');
-     }
+    if(currentTime > timeBlockHour) {
+     $(`#hour-${timeBlockHour}`).addClass('past');
+    } else if (currentTime < timeBlockHour) {
+     $(`#hour-${timeBlockHour}`).addClass('future');
+      } else if (currentTime === timeBlockHour) {
+       $(`#hour-${timeBlockHour}`).addClass('present');
+      }
   }
 
   var date = dayjs().format('MMM, D YYYY');
@@ -27,7 +28,7 @@ $(function () {
 function savedEvent (event) {
   console.log(event.target.previousSibling.parentNode.getAttribute('id'));
   var textValue = event.target.previousSibling.previousSibling.value;
-  var id = event.target.previousSibling.parentNode.getAttribute('id');
+  id = event.target.previousSibling.parentNode.getAttribute('id');
   var savedEvent = {
     text: textValue,
     id: id
@@ -37,12 +38,21 @@ function savedEvent (event) {
 
 saveButton.on('click', this, savedEvent);
 
-/* function getEvents() {
-  var savedText = JSON.parse(localStorage.getItem(id));
-  for(var i = 0; i < timeBlock.length; i++) {
+/*function getEvents() {
+  var savedText = JSON.parse(localStorage.getItem('key'));
+  console.log(savedText);
+  return savedText;
     $("textarea").text = savedText;
 }
-} */
+}*/
+
+function getEvents() {
+  var savedText = JSON.parse(localStorage.getItem(id));
+  console.log(savedText);
+  return savedText;
+}
+getEvents();
+
 }); 
 
 
